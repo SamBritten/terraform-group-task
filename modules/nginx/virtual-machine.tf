@@ -1,5 +1,5 @@
 resource "azurerm_virtual_machine" "front" {
-  name                  = "${var.prefix}-front-vm"
+  name                  = "${terraform.workspace}-front-vm"
   location              = "${azurerm_resource_group.default.location}"
   resource_group_name   = "${azurerm_resource_group.default.name}"
   network_interface_ids = ["${azurerm_network_interface.front.id}"]
@@ -12,13 +12,13 @@ resource "azurerm_virtual_machine" "front" {
     version   = "latest"
   }
   storage_os_disk {
-    name              = "${var.prefix}-front-vm"
+    name              = "${terraform.workspace}-front-vm"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "${var.prefix}-front-vm"
+    computer_name  = "${terraform.workspace}-front-vm"
     admin_username = "${var.admin_user}"
   }
   os_profile_linux_config {
@@ -47,7 +47,7 @@ resource "azurerm_virtual_machine" "front" {
 }
 
 resource "azurerm_virtual_machine" "back" {
-  name                  = "${var.prefix}-back-vm"
+  name                  = "${terraform.workspace}-back-vm"
   location              = "${azurerm_resource_group.default.location}"
   resource_group_name   = "${azurerm_resource_group.default.name}"
   network_interface_ids = ["${azurerm_network_interface.back.id}"]
@@ -60,13 +60,13 @@ resource "azurerm_virtual_machine" "back" {
     version   = "latest"
   }
   storage_os_disk {
-    name              = "${var.prefix}-back-vm"
+    name              = "${terraform.workspace}-back-vm"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "${var.prefix}-back-vm"
+    computer_name  = "${terraform.workspace}-back-vm"
     admin_username = "${var.admin_user}"
   }
   os_profile_linux_config {
@@ -83,7 +83,7 @@ resource "azurerm_virtual_machine" "back" {
 }
 
 resource "azurerm_virtual_machine" "manage" {
-  name                  = "${var.prefix}-manage-vm"
+  name                  = "${terraform.workspace}-manage-vm"
   location              = "${azurerm_resource_group.default.location}"
   resource_group_name   = "${azurerm_resource_group.default.name}"
   network_interface_ids = ["${azurerm_network_interface.manage.id}"]
@@ -96,13 +96,13 @@ resource "azurerm_virtual_machine" "manage" {
     version   = "latest"
   }
   storage_os_disk {
-    name              = "${var.prefix}-manage-vm"
+    name              = "${terraform.workspace}-manage-vm"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "${var.prefix}-manage-vm"
+    computer_name  = "${terraform.workspace}-manage-vm"
     admin_username = "${var.admin_user}"
   }
   os_profile_linux_config {
@@ -131,7 +131,7 @@ resource "azurerm_virtual_machine" "manage" {
 }
 
 resource "azurerm_virtual_machine" "data" {
-  name                  = "${var.prefix}-data-vm"
+  name                  = "${terraform.workspace}-data-vm"
   location              = "${azurerm_resource_group.default.location}"
   resource_group_name   = "${azurerm_resource_group.default.name}"
   network_interface_ids = ["${azurerm_network_interface.data.id}"]
@@ -144,13 +144,13 @@ resource "azurerm_virtual_machine" "data" {
     version   = "latest"
   }
   storage_os_disk {
-    name              = "${var.prefix}-data-vm"
+    name              = "${terraform.workspace}-data-vm"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "${var.prefix}-data-vm"
+    computer_name  = "${terraform.workspace}-data-vm"
     admin_username = "${var.admin_user}"
   }
   os_profile_linux_config {

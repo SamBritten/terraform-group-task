@@ -1,5 +1,5 @@
 resource "azurerm_network_security_group" "front" {
-    name                = "front-door"
+    name                = "${terraform.workspace}-front-door"
     location            = "${azurerm_resource_group.default.location}"
     resource_group_name = "${azurerm_resource_group.default.name}"
     
@@ -27,7 +27,7 @@ resource "azurerm_network_security_group" "front" {
     }
 }
 resource "azurerm_network_security_group" "back" {
-    name                = "back-door"
+    name                = "${terraform.workspace}-back-door"
     location            = "${azurerm_resource_group.default.location}"
     resource_group_name = "${azurerm_resource_group.default.name}"
 
@@ -68,7 +68,7 @@ resource "azurerm_network_security_group" "back" {
 
 }
 resource "azurerm_network_security_group" "data" {
-    name                = "data-door"
+    name                = "${terraform.workspace}-data-door"
     location            = "${azurerm_resource_group.default.location}"
     resource_group_name = "${azurerm_resource_group.default.name}"
 
@@ -97,7 +97,7 @@ resource "azurerm_network_security_group" "data" {
 
 } 
 resource "azurerm_network_security_group" "manage" {
-    name                = "manage-door"
+    name                = "${terraform.workspace}-manage-door"
     location            = "${azurerm_resource_group.default.location}"
     resource_group_name = "${azurerm_resource_group.default.name}"
 
