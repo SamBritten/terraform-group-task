@@ -1,8 +1,8 @@
 resource "azurerm_virtual_machine" "front" {
   name                  = "${terraform.workspace}-front-vm"
-  location              = "${var.resource_group.location}"
-  resource_group_name   = "${var.resource_group.name}"
-  network_interface_ids = ["${azurerm_network_interface.front.id}"]
+  location              = var.resource_group.location
+  resource_group_name   = var.resource_group.name
+  network_interface_ids = [azurerm_network_interface.front.id]
   vm_size               = "Standard_B1s"
 
   storage_image_reference {
@@ -19,13 +19,13 @@ resource "azurerm_virtual_machine" "front" {
   }
   os_profile {
     computer_name  = "${terraform.workspace}-front-vm"
-    admin_username = "${var.admin_user}"
+    admin_username = var.admin_user
   }
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
 	path = "/home/${var.admin_user}/.ssh/authorized_keys"
-	key_data = "${file("/home/${var.admin_user}/.ssh/id_rsa.pub")}"
+	key_data = file(pathexpand("~/.ssh/id_rsa.pub"))
 	}
   }
   tags = {
@@ -33,9 +33,9 @@ resource "azurerm_virtual_machine" "front" {
   }
 	connection {
 		type = "ssh"
-		user = "${var.admin_user}"
-		private_key = file("/home/${var.admin_user}/.ssh/id_rsa")
-		host = "${azurerm_public_ip.front.fqdn}"
+		user = var.admin_user
+		private_key = file(pathexpand("~/.ssh/id_rsa"))
+		host = azurerm_public_ip.front.fqdn
   }
   provisioner "remote-exec" {
 	  inline = [
@@ -48,9 +48,9 @@ resource "azurerm_virtual_machine" "front" {
 
 resource "azurerm_virtual_machine" "back" {
   name                  = "${terraform.workspace}-back-vm"
-  location              = "${var.resource_group.location}"
-  resource_group_name   = "${var.resource_group.name}"
-  network_interface_ids = ["${azurerm_network_interface.back.id}"]
+  location              = var.resource_group.location
+  resource_group_name   = var.resource_group.name
+  network_interface_ids = [azurerm_network_interface.back.id]
   vm_size               = "Standard_B1s"
 
   storage_image_reference {
@@ -67,13 +67,13 @@ resource "azurerm_virtual_machine" "back" {
   }
   os_profile {
     computer_name  = "${terraform.workspace}-back-vm"
-    admin_username = "${var.admin_user}"
+    admin_username = var.admin_user
   }
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
         path = "/home/${var.admin_user}/.ssh/authorized_keys"
-        key_data = "${file("/home/${var.admin_user}/.ssh/id_rsa.pub")}"
+        key_data = file(pathexpand("~/.ssh/id_rsa.pub"))
         }
   }
   tags = {
@@ -84,9 +84,9 @@ resource "azurerm_virtual_machine" "back" {
 
 resource "azurerm_virtual_machine" "manage" {
   name                  = "${terraform.workspace}-manage-vm"
-  location              = "${var.resource_group.location}"
-  resource_group_name   = "${var.resource_group.name}"
-  network_interface_ids = ["${azurerm_network_interface.manage.id}"]
+  location              = var.resource_group.location
+  resource_group_name   = var.resource_group.name
+  network_interface_ids = [azurerm_network_interface.manage.id]
   vm_size               = "Standard_B1s"
 
   storage_image_reference {
@@ -103,13 +103,13 @@ resource "azurerm_virtual_machine" "manage" {
   }
   os_profile {
     computer_name  = "${terraform.workspace}-manage-vm"
-    admin_username = "${var.admin_user}"
+    admin_username = var.admin_user
   }
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
         path = "/home/${var.admin_user}/.ssh/authorized_keys"
-        key_data = "${file("/home/${var.admin_user}/.ssh/id_rsa.pub")}"
+        key_data = file(pathexpand("~/.ssh/id_rsa.pub"))
         }
   }
   tags = {
@@ -117,9 +117,9 @@ resource "azurerm_virtual_machine" "manage" {
   }
         connection {
                 type = "ssh"
-                user = "${var.admin_user}"
-                private_key = file("/home/${var.admin_user}/.ssh/id_rsa")
-                host = "${azurerm_public_ip.manage.fqdn}"
+                user = var.admin_user
+                private_key = file(pathexpand("~/.ssh/id_rsa"))
+                host = azurerm_public_ip.manage.fqdn
   }
   provisioner "remote-exec" {
           inline = [
@@ -132,9 +132,9 @@ resource "azurerm_virtual_machine" "manage" {
 
 resource "azurerm_virtual_machine" "data" {
   name                  = "${terraform.workspace}-data-vm"
-  location              = "${var.resource_group.location}"
-  resource_group_name   = "${var.resource_group.name}"
-  network_interface_ids = ["${azurerm_network_interface.data.id}"]
+  location              = var.resource_group.location
+  resource_group_name   = var.resource_group.name
+  network_interface_ids = [azurerm_network_interface.data.id]
   vm_size               = "Standard_B1s"
 
   storage_image_reference {
@@ -151,13 +151,13 @@ resource "azurerm_virtual_machine" "data" {
   }
   os_profile {
     computer_name  = "${terraform.workspace}-data-vm"
-    admin_username = "${var.admin_user}"
+    admin_username = var.admin_user
   }
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
         path = "/home/${var.admin_user}/.ssh/authorized_keys"
-        key_data = "${file("/home/${var.admin_user}/.ssh/id_rsa.pub")}"
+        key_data = file(pathexpand("~/.ssh/id_rsa.pub"))
         }
   }
   tags = {
