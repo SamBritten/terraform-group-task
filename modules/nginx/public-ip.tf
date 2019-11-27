@@ -11,5 +11,5 @@ resource "azurerm_public_ip" "manage" {
     location                     = var.resource_group.location
     resource_group_name          = var.resource_group.name
     allocation_method            = "Dynamic"
-    domain_name_label = "${terraform-workspace}-manage-463361681130006683"
+    domain_name_label = "${terraform.workspace}-manage-463361681130006683"
 }
