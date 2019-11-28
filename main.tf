@@ -12,9 +12,17 @@ provider "azurerm" {
 
 module "nginx" {
   source = "./modules/nginx"
-  admin_user = "sam"
+  admin_user = "jenkins"
   resource_group = azurerm_resource_group.default
   virtual_network = azurerm_virtual_network.default
+}
+
+module "jenkins" {
+  source = "./modules/jenkins"
+  admin_user = "jenkins"
+  resource_group = azurerm_resource_group.default
+  virtual_network = azurerm_virtual_network.default
+  subnet_cidr = "10.10.1.0/24"
 }
 
 resource "azurerm_resource_group" "default" {

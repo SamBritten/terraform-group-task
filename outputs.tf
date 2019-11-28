@@ -1,8 +1,8 @@
-output "front_fqdn" {
-  value = module.nginx.front_fqdn
+output "nginx_fqdn" {
+  value = module.nginx.nginx_fqdn
 }
 
-output "manage_fqdn" {
-  value = module.nginx.manage_fqdn
+output "jenkins_fqdn" {
+  value = module.jenkins.jenkins_fqdn
 }
 
